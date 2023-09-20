@@ -15,3 +15,13 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+**/target/
+**/.gitignore
+.idea
+renren-fast
+renren-generator
