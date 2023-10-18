@@ -11,3 +11,19 @@ spring:
           uri: https://www.qq.com
           predicates:
             - Query=url,qq
+        # 所有跟商品相关的路径都转发到product服务 此断言比renren-fast的断言更加具体，应该优先触发
+        - id: product_route
+          uri: lb://mall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment} #把api及其前面部分去掉
+#        Path Route Predicate Factory
+#        RewritePath GatewayFilter Factory
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+## 前端项目 /api 需要这个'http://192.168.31.19:8080/renren-fast/',
